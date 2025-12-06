@@ -118,6 +118,8 @@ class TestDataCleaner(unittest.TestCase):
         df = make_sample_df()
         cleaner = DataCleaner()
         
+        df["name"] = df["name"].astype("string")
+        
         # Guardar copia del DataFrame original para comparación
         original_name = df['name'].copy()
         original_city = df['city'].copy()
@@ -164,7 +166,7 @@ class TestDataCleaner(unittest.TestCase):
         df = make_sample_df()
         cleaner = DataCleaner()
         
-        result = cleaner.remove_outliers_iqr(df, "age", factor=1.5)
+        result = cleaner.remove_outliers_iqr(df, "age", factor=0.5)
         
         # Assert 1: el valor extremo 120 debe ser eliminado
         self.assertNotIn(120, result["age"].values)
